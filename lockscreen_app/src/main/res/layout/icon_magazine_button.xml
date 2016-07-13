@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lockscreen_icon_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="60dp">
+    <View
+        android:layout_width="45dp"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        android:id="@+id/touchAreaLeft"/>
+    <RelativeLayout
+        android:layout_toRightOf="@+id/touchAreaLeft"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:id="@+id/layoutIcon">
+        <ImageView
+            android:id="@+id/imgFirst"
+            android:layout_width="5dp"
+            android:layout_height="15dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/icon_first"/>
+
+        <ImageView
+            android:id="@+id/imgSecond"
+            android:layout_width="5dp"
+            android:layout_height="15dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/icon_second"
+            android:layout_below="@+id/imgFirst"/>
+
+        <ImageView
+            android:id="@+id/imgThird"
+            android:layout_width="5dp"
+            android:layout_height="15dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/icon_third"
+            android:layout_below="@+id/imgSecond"/>
+
+        <ImageView
+            android:id="@+id/imgFourth"
+            android:layout_width="5dp"
+            android:layout_height="15dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/icon_fourth"
+            android:layout_below="@+id/imgThird"/>
+
+    </RelativeLayout>
+    <View
+        android:layout_toRightOf="@+id/layoutIcon"
+        android:layout_width="45dp"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        android:id="@+id/touchAreaRight"/>
+
+</RelativeLayout>

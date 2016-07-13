@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/rounded_white_border">
+
+    <ImageView
+        android:id="@+id/imgRestaurantIcon"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="6dp"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/txtRestaurantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6.6dp"
+        android:layout_toRightOf="@+id/imgRestaurantIcon"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="Restaurant name"
+        android:textSize="15sp"
+        android:textColor="#0074bd" />
+    <ImageView
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:id="@+id/imgCuisines"
+        android:background="@drawable/cuisines"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/txtRestaurantName"
+        android:layout_toRightOf="@+id/imgRestaurantIcon"/>
+
+    <TextView
+        android:id="@+id/txtRestaurantcuisines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Pizza"
+        android:layout_below="@+id/txtRestaurantName"
+        android:layout_toRightOf="@+id/imgCuisines"
+        android:layout_marginRight="6dp"
+        android:textSize="12sp"
+        android:maxWidth="140dp"
+        android:textColor="#000" />
+
+    <RatingBar
+        android:id="@+id/ratingMovieRating"
+        style="@android:style/Widget.Material.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtRestaurantcuisines"
+        android:layout_marginTop="4dp"
+        android:progressTint="#F27B48"
+        android:progressBackgroundTint="#AAAAAA"
+        android:layout_toRightOf="@+id/imgRestaurantIcon"/>
+
+    <TextView
+        android:id="@+id/txtRestaurantReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingMovieRating"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/imgRestaurantIcon"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="2"
+        android:textSize="12sp"
+        android:text="Amazing pizza"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/txtRestaurantDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_below="@+id/txtRestaurantName"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="03 miles"
+        android:textSize="12sp"
+        android:layout_marginRight="6dp"
+        android:textColor="#0074bd" />
+
+    <ImageView
+        android:id="@+id/imgLocation"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toLeftOf="@+id/txtRestaurantDistance"
+        android:layout_below="@+id/txtRestaurantName"
+        android:background="@drawable/location" />
+</RelativeLayout>

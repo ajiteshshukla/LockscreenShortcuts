@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">LockScreen</string>
+    <string name="action_settings">Settings</string>
+    <string name="title">LockScreen</string>
+    <string name="app_desc">InMobi LockScreen Desc</string>
+    <string name="heading_name">FREE Popular Apps From Google Play</string>
+    <string name="revoke_text">Revoke Access to Google Play!</string>
+    <string name="terms">Terms &#38; Conditions</string>
+    <string name="lockscreen_settings">Inmobi LockScreen Settings</string>
+    <string name="not_able">Inmobi LockScreen will not be able to access Google Play on your behalf</string>
+    <string name="stop_contextual">Inmobi LockScreen will stop showing contextual apps on your Lock Screen</string>
+    <string name="you_agree">You agree to this when you using Inmobi LockScreen</string>
+    <string name="lockscreen_text">InMobi LockScreen</string>
+    <string name="turn_off">Turn off Inmobi LockScreen</string>
+    <string name="install_appname">App Name is</string>
+    <string name="fan_app_title">FAN App Title</string>
+    <string name="app_vandor">App Vendor</string>
+    <string name="app_category">App Category</string>
+    <string name="install_now">INSTALL</string>
+    <string name="installing_prog">INSTALLING..</string>
+    <string name="needs_access">needs access to</string>
+    <string name="unlock_to_install">UNLOCK TO INSTALL</string>
+    <string name="powered_by">Powered By</string>
+    <string name="lockscreen_details">InMobi\&#39;s Lock Screen adds value to your experience by serendipitously showing the most relevant apps and products on your device’s lock screen. </string>
+    <string name="about_app"> About App</string>
+    <string name="fan_grid_title"> Apps you may like</string>
+    <string name="install_explore">INSTALL &#38; EXPLORE</string>
+    <string name="open_app">OPEN APP</string>
+    <string name="unlock_to_explore">UNLOCK TO EXPLORE</string>
+</resources>

@@ -1,0 +1,35 @@
+apply from: 'gradle/vault.gradle'
+apply from: 'gradle/deps.gradle'
+apply from: 'gradle/android.gradle'
+
+buildscript {
+    ext {
+    }
+
+    repositories {
+        jcenter()
+    }
+    dependencies {
+    }
+}
+
+apply plugin: 'maven'
+allprojects {
+}
+
+subprojects {
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url "$androidHome/extras/android/m2repository" }
+        maven { url 'https://artifactory.corp.inmobi.com/artifactory/releases' }
+        maven { url 'https://artifactory.corp.inmobi.com/artifactory/snapshots' }
+    }
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.7"
+        targetCompatibility = "1.7"
+    }
+}
