@@ -1,5 +1,4 @@
 rootProject.name = "lockscreen_parent"
 
-include ":lockscreen_app", ':asymmetric_gridview'
+include ":lockscreen_app"
 
-include ':view_pager_indicator'

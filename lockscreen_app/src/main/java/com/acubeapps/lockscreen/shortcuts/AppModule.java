@@ -9,12 +9,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Response;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 import org.greenrobot.eventbus.EventBus;
@@ -34,27 +28,12 @@ public class AppModule {
     private final IconController iconController;
     private final EventBus eventBus;
     private final ExecutorService backgroundPool;
-    private final Picasso picasso;
     private final SharedPreferences sharedPreferences;
 
     public AppModule(Application context) {
         this.context = context;
         this.eventBus = new EventBus();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.networkInterceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response originalResponse = chain.proceed(chain.request());
-                return originalResponse.newBuilder()
-                        .header("Cache-Control", "max-age=" + (Constants.PICASSO_CACHE_AGE)).build();
-            }
-        });
-        okHttpClient.setCache(new Cache(this.context.getCacheDir(), Integer.MAX_VALUE));
-        OkHttpDownloader okHttpDownloader = new OkHttpDownloader(okHttpClient);
-
-        picasso = new Picasso.Builder(this.context).downloader(okHttpDownloader).build();
         IconDisplayFactory iconFactory = new OverlayIconDisplayFactory(context, sharedPreferences);
         this.iconController = new IconControllerImpl(iconFactory);
         this.backgroundPool = Executors.newFixedThreadPool(5);
@@ -83,12 +62,6 @@ public class AppModule {
     @Provides
     public ExecutorService provideBackgroundPool() {
         return backgroundPool;
-    }
-
-    @Singleton
-    @Provides
-    public Picasso getPicasso() {
-        return this.picasso;
     }
 
     @Singleton
