@@ -1,0 +1,73 @@
+ext {
+    androidHome = detectAndroidHome()
+    projectVersion = extractVersion(project.properties["version"], false)
+    projectVersionCode = extractVersionCode(project.properties["version"])
+
+    checkstyleVersion = 6.7
+
+    println("projectVersion = $projectVersion, projectVersionCode = $projectVersionCode, androidHome = $androidHome")
+}
+
+def extractVersion(v, android) {
+    def isSnapshot = v.endsWith("-SNAPSHOT")
+    v = v.replaceAll("-SNAPSHOT", "")
+    def (major, minor, build) = v.tokenize(".")
+
+    def result = major + "." + minor + "." + build
+    if (android) {
+
+        new ByteArrayOutputStream().withStream { commitId ->
+            exec {
+                executable = 'git'
+                args = ['rev-parse', '--short', 'HEAD']
+                workingDir = "$rootProject.projectDir"
+                ignoreExitValue = false
+                standardOutput = commitId
+            }
+
+            result += "." + commitId.toString().trim()
+        }
+
+    }
+
+    if (isSnapshot) {
+        result += "-SNAPSHOT"
+    }
+    return result
+}
+
+
+def extractVersionCode(v) {
+    def isSnapshot = v.endsWith("-SNAPSHOT")
+    v = v.replaceAll("-SNAPSHOT", "")
+    def (major, minor, build) = v.tokenize(".")
+    def code = major.toInteger() * 10000 + minor.toInteger() * 100 + build.toInteger()
+    def commitCount = (isSnapshot ? 0 : 1000) // release version is ahead of snapshot
+
+    new ByteArrayOutputStream().withStream { commitCountStr ->
+        exec {
+            executable = 'git'
+            args = ['rev-list', '--count', 'HEAD']
+            workingDir = "$rootProject.projectDir"
+            ignoreExitValue = false
+            standardOutput = commitCountStr
+        }
+        if (!commitCountStr.toString().trim().isEmpty()) {
+            commitCount += commitCountStr.toString().trim().toInteger()
+        }
+    }
+    return code
+}
+
+def detectAndroidHome() {
+    def paths = [System.env.ANDROID_HOME, "/usr/local/opt/android-sdk", "/Applications/Android Studio.app/sdk"]
+    for (path in paths) {
+        if (path == null) {
+            continue
+        }
+        if (!file(path).exists()) {
+            continue
+        }
+        return path
+    }
+}
