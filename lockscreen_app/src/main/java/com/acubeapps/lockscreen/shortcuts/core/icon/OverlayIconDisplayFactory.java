@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public class OverlayIconDisplayFactory implements IconDisplayFactory {
 
@@ -58,9 +58,9 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     }
 
     @Override
-    public IconDisplay getIconDisplay(final Icon icon, final IconEventListener eventListener) {
+    public IconDisplay getIconDisplay() {
         ViewGroup view;
-        view = (ViewGroup) layoutInflater.inflate(R.layout.icon_magazine_button_text, null);
+        view = (ViewGroup) layoutInflater.inflate(R.layout.icon, null);
         List<ImageView> imageViewList = new ArrayList<>();
         ImageView appIcon1 = (ImageView) view.findViewById(R.id.appicon1);
         ImageView appIcon2 = (ImageView) view.findViewById(R.id.appicon2);
@@ -76,7 +76,7 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         imageViewList.add(appIcon6);
         bindAppIcon(imageViewList, appListStore.getPackageNameList());
         final IconDisplay display = new OverlayIconDisplay(0, 0, view, windowManager, preferences);
-        view.setOnTouchListener(new OverlayIconTouchListener(icon, eventListener));
+        view.setOnTouchListener(new OverlayIconTouchListener());
         gestureDetector = new GestureDetector(context, new Gesture(view));
         layoutText = (RelativeLayout) view.findViewById(R.id.layoutText);
         layoutText.setVisibility(View.VISIBLE);
@@ -149,19 +149,12 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                                              WindowManager.LayoutParams layoutParams) {
         View lsIcon = view.findViewById(R.id.lsIcon);
         View lsIconRight = view.findViewById(R.id.lsIconRight);
-        View touchAreaLeft = view.findViewById(R.id.touchAreaLeft);
-        View touchAreaRight = view.findViewById(R.id.touchAreaRight);
         if (motionEvent.getRawX() > getCenterX()) {
             layoutParams.gravity = Gravity.RIGHT | Gravity.TOP;
             preferences.edit().putBoolean(Constants.NUDGE_ALIGN_LEFT, false).apply();
             if (lsIcon != null && lsIconRight != null) {
                 lsIcon.setVisibility(View.GONE);
                 lsIconRight.setVisibility(View.VISIBLE);
-            }
-            if (touchAreaLeft != null && touchAreaRight != null) {
-                touchAreaRight.setVisibility(View.GONE);
-                touchAreaLeft.setVisibility(View.VISIBLE);
-                AnimationHelper.alignIconViewToParent(view, false);
             }
             Timber.d(LOG_TAG, "Align Nudge Right");
         } else {
@@ -171,11 +164,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                 lsIcon.setVisibility(View.VISIBLE);
                 lsIconRight.setVisibility(View.GONE);
             }
-            if (touchAreaLeft != null && touchAreaRight != null) {
-                touchAreaRight.setVisibility(View.VISIBLE);
-                touchAreaLeft.setVisibility(View.GONE);
-                AnimationHelper.alignIconViewToParent(view, true);
-            }
             Timber.d(LOG_TAG, "Align Nudge Left");
         }
         layoutParams.x = 0;
@@ -184,15 +172,11 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     }
 
     private class OverlayIconTouchListener implements View.OnTouchListener {
-        private final IconEventListener iconEventListener;
-        private final Icon icon;
         private int initialY = 0;
         private float initialTouchY = 0;
         WindowManager.LayoutParams layoutParams;
 
-        public OverlayIconTouchListener(Icon icon, IconEventListener iconEventListener) {
-            this.icon = icon;
-            this.iconEventListener = iconEventListener;
+        public OverlayIconTouchListener() {
         }
 
         @Override
@@ -239,8 +223,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
 
     private void moveIconToPointer(View view, MotionEvent motionEvent, int initialY,
                                    float initialTouchY) {
-        View touchAreaLeft = view.findViewById(R.id.touchAreaLeft);
-        View touchAreaRight = view.findViewById(R.id.touchAreaRight);
         WindowManager.LayoutParams layoutParams = OverlayIconDisplay.getGeneralLayoutParams();
         if (preferences.getBoolean(Constants.NUDGE_ALIGN_LEFT, true)) {
             layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
@@ -250,10 +232,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
             layoutParams.gravity = Gravity.RIGHT | Gravity.TOP;
             layoutParams.x = (int) (getCenterX() * 2 - motionEvent.getRawX());
             layoutParams.y = initialY + (int) (motionEvent.getRawY() - initialTouchY);
-        }
-        if (touchAreaLeft != null && touchAreaRight != null) {
-            touchAreaLeft.setVisibility(View.GONE);
-            touchAreaRight.setVisibility(View.GONE);
         }
         windowManager.updateViewLayout(view, layoutParams);
     }
@@ -281,27 +259,24 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         public void onLongPress(final MotionEvent motionEvent) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(50);
-            long magazineViewedCount = preferences.getLong(Constants.MAGAZINE_VIEWED_COUNT, 0);
-            if (magazineViewedCount < Constants.MAX_MAGAZINE_VIEW_COUNT_TO_SHOW_FRESH_ICON_TEXT) {
-                AnimationHelper.animateHideNudgeDetails(view, new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
+            AnimationHelper.animateHideNudgeDetails(view, new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
-                    }
+                }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        layoutText.setVisibility(View.GONE);
-                        moveSmallIconToTouchArea(motionEvent, initialTouchY, view);
-                        isLongPressed = true;
-                    }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    layoutText.setVisibility(View.GONE);
+                    moveSmallIconToTouchArea(motionEvent, initialTouchY, view);
+                    isLongPressed = true;
+                }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                @Override
+                public void onAnimationRepeat(Animation animation) {
 
-                    }
-                }, preferences);
-            }
+                }
+            }, preferences);
         }
     }
 

@@ -57,47 +57,16 @@ android {
 }
 
 dependencies {
-    compile deps.transport_idl.common
-    compile deps.core.sdk
-    compile(deps.oem_common.android) {
-        transitive = true
-        exclude module: 'crashlytics'
-        exclude module: 'play-services-analytics'
-    }
-    compile deps.oem_common.java
-    compile deps.moments.common
-    compile deps.moments.matcher
-    compile deps.amplitude_sdk
-    compile deps.mixpanel_sdk
     compile deps.timber
     compile deps.appcompat_v7
-    compile deps.recyclerview
     compile deps.support_design
-    compile deps.support_percent
-    compile deps.picasso
-    compile deps.rounder_imageview
     compile deps.eventbus
     compile deps.butterknife
     apt deps.butterknife_compiler
     compile deps.dagger
     apt deps.dagger_compiler
     provided deps.javax_annotation
-    compile deps.slf4j_api
-    compile deps.slf4j_android
-    compile(deps.evernote_job)
-    {
-        exclude module: 'support-annotations'
-    }
     compile deps.support_v13
-    compile deps.gms_base
-    compile deps.gms_location
-    compile deps.gms_ads
-    compile deps.gms_plus
-    compile deps.exoplayer
-    compile project(':asymmetric_gridview')
-    compile project(':view_pager_indicator')
-
-
     compile 'com.android.support:multidex:1.0.0'
 }
 
@@ -113,14 +82,6 @@ task checkstyle(type: Checkstyle) {
     source 'src'
     include '**/*.java'
     exclude '**/gen/**'
-    //Files part of exoplayer
-    exclude '**/com/inmobi/oem/lockscreen/player/DemoPlayer.java'
-    exclude '**/com/inmobi/oem/lockscreen/player/DashRendererBuilder.java'
-    exclude '**/com/inmobi/oem/lockscreen/player/ExtractorRendererBuilder.java'
-    exclude '**/com/inmobi/oem/lockscreen/player/HlsRendererBuilder.java'
-    exclude '**/com/inmobi/oem/lockscreen/player/SmoothStreamingRendererBuilder.java'
-    exclude '**/com/inmobi/oem/lockscreen/player/SmoothStreamingTestMediaDrmCallback.java'
-    exclude '**/com/inmobi/oem/lockscreen/core/AnimationHelper.java'
     classpath = files()
 }
 

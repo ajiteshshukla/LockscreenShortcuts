@@ -13,7 +13,7 @@ import timber.log.Timber;
 import javax.inject.Inject;
 
 /**
- * Created by ritwik on 30/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public class WakeupReciever extends BroadcastReceiver {
 

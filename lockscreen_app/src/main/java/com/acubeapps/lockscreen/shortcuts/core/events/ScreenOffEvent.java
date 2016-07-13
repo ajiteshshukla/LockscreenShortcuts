@@ -1,11 +1,9 @@
 package com.acubeapps.lockscreen.shortcuts.core.events;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public final class ScreenOffEvent extends ScreenEvent {
-
-   // public static final ScreenOffEvent INSTANCE = new ScreenOffEvent();
 
     public ScreenOffEvent(ScreenEventsType lastEventType) {
         this.lastEventType = lastEventType;

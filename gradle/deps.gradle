@@ -1,64 +1,29 @@
 ext {
     deps = [
-            // Vault
-            oem_common          : [
-                    android :   dependencies.create("com.inmobi.oem.common:oem-common-android:$commonVersion:release@aar"),
-                    java    :   dependencies.create("com.inmobi.oem.common:oem-common-java:$commonVersion"),
-            ],
-            transport_idl   : [
-                    common  :   dependencies.create("com.inmobi.oem.thrift:transport-idl-common:${transportIdlVersion}")
-            ],
-            core            : [
-                    sdk     :   dependencies.create("com.inmobi.oem.core:core_sdk:${coreVersion}:release@aar")
-            ],
-            moments         : [
-                    matcher :   dependencies.create("com.inmobi.oem.moments:moments_matcher:${momentsVersion}:@aar"),
-                    common  :   dependencies.create("com.inmobi.oem.moments:moments_common:${momentsVersion}")
-            ],
-
             // Java
             slf4j_api       :  dependencies.create('org.slf4j:slf4j-api:1.7.21'),
             slf4j_android   :  dependencies.create('org.slf4j:slf4j-api:1.7.21'),
 
-            thrift          :  dependencies.create('org.apache.thrift:libthrift:0.9.3'),
             javax_annotation:  dependencies.create('javax.annotation:javax.annotation-api:1.2'),
 
             // Android
             appcompat_v7    :  dependencies.create('com.android.support:appcompat-v7:24.0.0'),
             support_design  :  dependencies.create('com.android.support:design:24.0.0'),
-            support_percent :  dependencies.create('com.android.support:percent:24.0.0'),
             support_v13     :  dependencies.create('com.android.support:support-v13:24.0.0'),
             support_v4      :  dependencies.create('com.android.support:support-v4:24.0.0'),
             recyclerview    :  dependencies.create('com.android.support:recyclerview-v7:24.0.0'),
-            picasso         :  dependencies.create('com.squareup.picasso:picasso:2.5.2'),
             eventbus        :  dependencies.create('org.greenrobot:eventbus:3.0.0'),
             butterknife     :  dependencies.create('com.jakewharton:butterknife:8.0.1'),
             butterknife_compiler     :  dependencies.create('com.jakewharton:butterknife-compiler:8.0.1'),
             dagger          :  dependencies.create('com.google.dagger:dagger:2.4'),
             dagger_compiler :  dependencies.create('com.google.dagger:dagger-compiler:2.4'),
             timber          :  dependencies.create('com.jakewharton.timber:timber:4.1.2'),
-            evernote_job    :  dependencies.create('com.evernote:android-job:1.0.6'),
-	    
-            //Amplitude
-            amplitude_sdk    : dependencies.create('com.amplitude:android-sdk:2.7.1'),
-	    
-            //Mix Panel
-            mixpanel_sdk    : dependencies.create('com.mixpanel.android:mixpanel-android:4.8.7'),
-
-            // Google Play Services
-            gms_base    :  dependencies.create("com.google.android.gms:play-services-base:${gmsVersion}"),
-            gms_location    :  dependencies.create("com.google.android.gms:play-services-location:${gmsVersion}"),
-            gms_ads    :  dependencies.create("com.google.android.gms:play-services-ads:${gmsVersion}"),
-            gms_plus    :  dependencies.create("com.google.android.gms:play-services-plus:${gmsVersion}"),
-
-            rounder_imageview : dependencies.create('com.makeramen:roundedimageview:2.2.1'),
 
             // Test
             testng          :  dependencies.create('org.testng:testng:6.9.10'),
             mockito         :  dependencies.create('org.mockito:mockito-all:2.0.2-beta'),
             junit4          :  dependencies.create('junit:junit:4.12'),
             robolectric     :  dependencies.create('org.robolectric:robolectric:3.0'),
-            exoplayer       :  dependencies.create('com.google.android.exoplayer:exoplayer:r1.5.9')
 
     ]
 

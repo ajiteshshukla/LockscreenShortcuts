@@ -1,11 +1,9 @@
 package com.acubeapps.lockscreen.shortcuts;
 
-import com.acubeapps.lockscreen.shortcuts.DaggerAppComponent;
-
 import android.app.Application;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public final class Injectors {
 

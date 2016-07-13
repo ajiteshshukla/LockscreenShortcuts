@@ -27,4 +27,5 @@
     <string name="install_explore">INSTALL &#38; EXPLORE</string>
     <string name="open_app">OPEN APP</string>
     <string name="unlock_to_explore">UNLOCK TO EXPLORE</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
