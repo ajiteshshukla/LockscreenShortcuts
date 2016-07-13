@@ -1,7 +1,7 @@
 package com.acubeapps.lockscreen.shortcuts.core.events;
 
 /**
- * Created by indersingh on 7/6/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 
 public enum ScreenEventsType {

@@ -112,10 +112,7 @@ public final class AnimationHelper {
                     layoutParams.y = finalY;
                     windowManager.updateViewLayout(view, layoutParams);
                     if (layoutParams.x == finalX) {
-                        long magazineViewedCount = preferences.getLong(Constants.MAGAZINE_VIEWED_COUNT, 0);
-                        if (magazineViewedCount < Constants.MAX_MAGAZINE_VIEW_COUNT_TO_SHOW_FRESH_ICON_TEXT) {
-                            animateShowNudgeDetails(view, preferences);
-                        }
+                        animateShowNudgeDetails(view, preferences);
                     }
                 } catch (Exception e) {
                     animatorX.removeAllUpdateListeners();

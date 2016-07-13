@@ -1,13 +1,11 @@
 package com.acubeapps.lockscreen.shortcuts.core.icon;
 
-import android.support.annotation.NonNull;
-
 import timber.log.Timber;
 
 import javax.inject.Inject;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public class IconControllerImpl implements IconController {
 

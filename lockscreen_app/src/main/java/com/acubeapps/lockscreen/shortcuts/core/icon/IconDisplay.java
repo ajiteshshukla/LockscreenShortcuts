@@ -1,7 +1,7 @@
 package com.acubeapps.lockscreen.shortcuts.core.icon;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public interface IconDisplay {
 

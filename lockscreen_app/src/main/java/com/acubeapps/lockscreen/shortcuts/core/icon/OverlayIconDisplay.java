@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import timber.log.Timber;
 
 /**
- * Created by indersingh on 5/29/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public class OverlayIconDisplay implements IconDisplay {
 

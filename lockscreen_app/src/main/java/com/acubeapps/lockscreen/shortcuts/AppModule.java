@@ -25,7 +25,7 @@ import java.util.concurrent.Executors;
 import javax.inject.Singleton;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 @Module
 public class AppModule {

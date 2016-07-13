@@ -1,18 +1,16 @@
 package com.acubeapps.lockscreen.shortcuts.core;
 
-import com.acubeapps.lockscreen.shortcuts.BuildConfig;
 import com.acubeapps.lockscreen.shortcuts.Injectors;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import javax.inject.Inject;
 
 /**
- * Created by indersingh on 5/29/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public class NudgeService extends Service {
 

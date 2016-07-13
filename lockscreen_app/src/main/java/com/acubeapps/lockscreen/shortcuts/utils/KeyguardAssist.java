@@ -5,6 +5,9 @@ import com.acubeapps.lockscreen.shortcuts.UnlockActivity;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+ * Created by ajitesh.shukla on 7/12/16.
+ */
 public final class KeyguardAssist {
 
     private KeyguardAssist() {

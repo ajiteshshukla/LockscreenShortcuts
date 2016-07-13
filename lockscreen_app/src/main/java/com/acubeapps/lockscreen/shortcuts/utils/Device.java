@@ -24,6 +24,9 @@ import android.view.WindowManager;
 
 import java.lang.reflect.Method;
 
+/**
+ * Created by ajitesh.shukla on 7/12/16.
+ */
 public final class Device {
     public static final int API_VERSION;
     public static final String API_VERSION_NAME_SHORT;

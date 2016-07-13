@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 7/12/16.
  */
 public class OverlayIconDisplayFactory implements IconDisplayFactory {
 
@@ -252,27 +252,24 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         public void onLongPress(final MotionEvent motionEvent) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(50);
-            long magazineViewedCount = preferences.getLong(Constants.MAGAZINE_VIEWED_COUNT, 0);
-            if (magazineViewedCount < Constants.MAX_MAGAZINE_VIEW_COUNT_TO_SHOW_FRESH_ICON_TEXT) {
-                AnimationHelper.animateHideNudgeDetails(view, new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
+            AnimationHelper.animateHideNudgeDetails(view, new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
 
-                    }
+                }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        layoutText.setVisibility(View.GONE);
-                        moveSmallIconToTouchArea(motionEvent, initialTouchY, view);
-                        isLongPressed = true;
-                    }
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    layoutText.setVisibility(View.GONE);
+                    moveSmallIconToTouchArea(motionEvent, initialTouchY, view);
+                    isLongPressed = true;
+                }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                @Override
+                public void onAnimationRepeat(Animation animation) {
 
-                    }
-                }, preferences);
-            }
+                }
+            }, preferences);
         }
     }
 
