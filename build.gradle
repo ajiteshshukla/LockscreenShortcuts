@@ -1,4 +1,4 @@
-apply from: 'gradle/vault.gradle'
+apply from: 'gradle/app.gradle'
 apply from: 'gradle/deps.gradle'
 apply from: 'gradle/android.gradle'
 
