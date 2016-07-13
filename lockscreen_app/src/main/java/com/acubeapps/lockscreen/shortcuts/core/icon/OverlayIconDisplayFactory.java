@@ -1,6 +1,7 @@
 package com.acubeapps.lockscreen.shortcuts.core.icon;
 
 import com.acubeapps.lockscreen.shortcuts.AppInfo;
+import com.acubeapps.lockscreen.shortcuts.AppListStore;
 import com.acubeapps.lockscreen.shortcuts.Constants;
 import com.acubeapps.lockscreen.shortcuts.R;
 import com.acubeapps.lockscreen.shortcuts.core.AnimationHelper;
@@ -46,12 +47,14 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     private boolean isLongPressed = false;
     private boolean flag_handled = false;
     private RelativeLayout layoutText;
+    private final AppListStore appListStore;
 
-    public OverlayIconDisplayFactory(Context context, SharedPreferences preferences) {
+    public OverlayIconDisplayFactory(Context context, SharedPreferences preferences, AppListStore appListStore) {
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.preferences = preferences;
+        this.appListStore = appListStore;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         imageViewList.add(appIcon4);
         imageViewList.add(appIcon5);
         imageViewList.add(appIcon6);
-        bindAppIcon(imageViewList);
+        bindAppIcon(imageViewList, appListStore.getPackageNameList());
         final IconDisplay display = new OverlayIconDisplay(0, 0, view, windowManager, preferences);
         view.setOnTouchListener(new OverlayIconTouchListener(icon, eventListener));
         gestureDetector = new GestureDetector(context, new Gesture(view));
@@ -114,25 +117,29 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         }
     }
 
-    private void bindAppIcon(List<ImageView> imageViewList) {
-        PackageManager packageManager = context.getPackageManager();
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        //read package names from store
-        final List<ResolveInfo> apps = packageManager.queryIntentActivities(mainIntent, 0);
+    private void bindAppIcon(List<ImageView> imageViewList, List<String> packageNameList) {
         final List<AppInfo> appInfoList = new ArrayList<>();
-        for (ResolveInfo resolveInfo : apps) {
-            if (appInfoList.size() > imageViewList.size()) {
-                break;
-            }
-            try {
-                AppInfo appInfo = getAppInfo(resolveInfo);
-                if (appInfo.getLaunchIntent() != null) {
-                    Log.d("Ajitesh : ", "launch intent null for " + resolveInfo.toString());
-                    appInfoList.add(appInfo);
+        for (int i = 0; i < packageNameList.size(); i++) {
+            PackageManager packageManager = context.getPackageManager();
+            Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+            mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            mainIntent.setPackage(packageNameList.get(i));
+            final List<ResolveInfo> apps = packageManager.queryIntentActivities(mainIntent, 0);
+            for (ResolveInfo resolveInfo : apps) {
+                if (appInfoList.size() >= imageViewList.size()) {
+                    break;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    AppInfo appInfo = getAppInfo(resolveInfo);
+                    if (appInfo.getLaunchIntent() != null) {
+                        appInfoList.add(appInfo);
+                        break;
+                    } else {
+                        Log.d("Ajitesh : ", "launch intent null for " + resolveInfo.toString());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         addTouchListeners(imageViewList, appInfoList);

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView android:layout_height="80dp"
+              android:layout_width="match_parent"
+              android:layout_gravity="center_horizontal"
+              android:layout_alignParentTop="true"
+              android:id="@+id/header_text"
+              android:gravity="center_horizontal"
+              android:textAlignment="center"
+              android:background="@color/dark_translucent"
+              android:textColor="#FFFFFF"
+              android:text="SELECT APPS"/>
+    <ListView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/header_text"
+              android:id="@+id/applist"
+              android:divider="#b5b5b5"
+              android:dividerHeight="1dp"/>
+</RelativeLayout>

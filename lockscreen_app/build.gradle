@@ -24,14 +24,14 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(project.properties["jks.certPath"])
-            storePassword project.properties["jks.storePassword"]
-            keyAlias project.properties["jks.keyAlias"]
-            keyPassword project.properties["jks.storePassword"]
-//            storeFile file("$rootProject.projectDir/certs/android.jks")
-//            storePassword "InMobi123"
-//            keyAlias "oem"
-//            keyPassword "InMobi123"
+//            storeFile file(project.properties["jks.certPath"])
+//            storePassword project.properties["jks.storePassword"]
+//            keyAlias project.properties["jks.keyAlias"]
+//            keyPassword project.properties["jks.storePassword"]
+            storeFile file("$rootProject.projectDir/certs/android.jks")
+            storePassword "InMobi123"
+            keyAlias "oem"
+            keyPassword "InMobi123"
         }
     }
 
