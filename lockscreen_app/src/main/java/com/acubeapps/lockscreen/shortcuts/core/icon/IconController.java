@@ -7,10 +7,7 @@ import android.support.annotation.NonNull;
  */
 public interface IconController {
 
-    void showIcon(@NonNull Icon icon, @NonNull IconEventListener iconEventListener,
-                  boolean isFreshIcon);
-
-    void showCurrentIcon();
+    void showIcon();
 
     void hideIcon();
 }

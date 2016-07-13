@@ -5,6 +5,6 @@ package com.acubeapps.lockscreen.shortcuts.core.icon;
  */
 public interface IconDisplayFactory {
 
-    IconDisplay getIconDisplay(Icon icon, IconEventListener eventListener);
+    IconDisplay getIconDisplay();
 
 }

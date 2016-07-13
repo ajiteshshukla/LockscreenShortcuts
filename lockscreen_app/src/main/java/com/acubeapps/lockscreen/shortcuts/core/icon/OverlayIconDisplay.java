@@ -53,29 +53,17 @@ public class OverlayIconDisplay implements IconDisplay {
         params = new WindowManager.LayoutParams(width, height, windowType, flags, format);
         View lsIcon = viewGroup.findViewById(R.id.lsIcon);
         View lsIconRight = viewGroup.findViewById(R.id.lsIconRight);
-        View touchAreaLeft = viewGroup.findViewById(R.id.touchAreaLeft);
-        View touchAreaRight = viewGroup.findViewById(R.id.touchAreaRight);
         if (preferences.getBoolean(Constants.NUDGE_ALIGN_LEFT, true)) {
             params.gravity = Gravity.LEFT | Gravity.TOP;
             if (lsIcon != null && lsIconRight != null) {
                 lsIcon.setVisibility(View.VISIBLE);
                 lsIconRight.setVisibility(View.GONE);
             }
-            if (touchAreaLeft != null && touchAreaRight != null) {
-                touchAreaRight.setVisibility(View.VISIBLE);
-                touchAreaLeft.setVisibility(View.GONE);
-                AnimationHelper.alignIconViewToParent(viewGroup, true);
-            }
         } else {
             params.gravity = Gravity.RIGHT | Gravity.TOP;
             if (lsIcon != null && lsIconRight != null) {
                 lsIcon.setVisibility(View.GONE);
                 lsIconRight.setVisibility(View.VISIBLE);
-            }
-            if (touchAreaLeft != null && touchAreaRight != null) {
-                touchAreaRight.setVisibility(View.GONE);
-                touchAreaLeft.setVisibility(View.VISIBLE);
-                AnimationHelper.alignIconViewToParent(viewGroup, false);
             }
         }
         params.x = DEFAULT_X;
@@ -99,7 +87,7 @@ public class OverlayIconDisplay implements IconDisplay {
     }
 
     @Override
-    public void show(boolean shouldAnimate) {
+    public void show() {
         MAIN_HANDLER.post(new Runnable() {
             @Override
             public void run() {
@@ -108,21 +96,7 @@ public class OverlayIconDisplay implements IconDisplay {
                 }
                 try {
                     wm.addView(viewGroup, getLayoutParams());
-                    long magazineViewedCount = preferences.getLong(Constants.MAGAZINE_VIEWED_COUNT, 0);
-                    long videoViewedCount = preferences.getLong(Constants.VIDEO_VIEWED_COUNT, 0);
-                    long totalVideoCount = preferences.getLong(Constants.TOTAL_VIDEO_COUNT, 1);
-                    long videoViewedPerc = 0;
-                    if (totalVideoCount != 0) {
-                        videoViewedPerc = videoViewedCount / totalVideoCount * 100;
-                    }
-                    if (magazineViewedCount < Constants.MAX_MAGAZINE_VIEW_COUNT_TO_SHOW_FRESH_ICON_TEXT) {
-                        AnimationHelper.animateShowNudgeDetails(viewGroup, preferences);
-                    } else if (magazineViewedCount >= Constants.MAX_MAGAZINE_VIEW_COUNT_TO_SHOW_STALE_ICON
-                            || videoViewedPerc >= Constants.MAX_VIDEO_VIEW_PERC_TO_SHOW_STALE_ICON) {
-                        Timber.d("OverlayIconDisplay : ", "drawing stale icon");
-                    } else {
-                        AnimationHelper.animateNonDescriptiveNudge(viewGroup);
-                    }
+                    AnimationHelper.animateShowNudgeDetails(viewGroup, preferences);
                 } catch (Exception e) {
                     e.printStackTrace();
                     isPresent = false;

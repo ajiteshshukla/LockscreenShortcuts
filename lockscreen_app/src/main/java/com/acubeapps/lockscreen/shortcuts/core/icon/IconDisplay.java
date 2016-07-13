@@ -5,7 +5,7 @@ package com.acubeapps.lockscreen.shortcuts.core.icon;
  */
 public interface IconDisplay {
 
-    void show(boolean shouldAnimate);
+    void show();
 
     void hide();
 

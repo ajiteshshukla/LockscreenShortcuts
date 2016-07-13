@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -26,7 +27,6 @@ public class NudgeService extends Service {
         super.onCreate();
 
         Injectors.appComponent().injectNudgeService(this);
-
         appController.start();
     }
 
@@ -38,27 +38,6 @@ public class NudgeService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (BuildConfig.DEBUG) {
-            /*
-            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    "MyWakelockTag");
-            wakeLock.acquire();
-
-            Intent notifIntent = new Intent(this, AppAdActivity.class);
-            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notifIntent, 0);
-
-            Notification notification = new NotificationCompat.Builder(this)
-                    .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.icon_app_info)
-                    .setOngoing(true)
-                    .setAutoCancel(false)
-                    .build();
-            startForeground(123, notification);
-            */
-        }
-
         return Service.START_STICKY;
     }
 

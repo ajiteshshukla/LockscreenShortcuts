@@ -1,10 +1,6 @@
 package com.acubeapps.lockscreen.shortcuts;
 
-import com.inmobi.oem.moments.matcher.MomentApi;
-import com.acubeapps.lockscreen.shortcuts.BuildConfig;
 import com.acubeapps.lockscreen.shortcuts.core.NudgeService;
-import com.acubeapps.lockscreen.shortcuts.core.ad.AdApi;
-import com.acubeapps.lockscreen.shortcuts.video.VideoService;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,15 +18,6 @@ public class MainApplication extends MultiDexApplication {
 
     @Inject
     Context context;
-
-    @Inject
-    AdApi adApi;
-
-    @Inject
-    MomentApi momentApi;
-
-    @Inject
-    VideoService videoService;
 
     @Override
     public void onCreate() {
@@ -58,11 +45,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     private void startServices() {
-        adApi.initialize();
-
         startNudgeService();
-        momentApi.startMomentService();
-        videoService.start();
     }
 
     private void startNudgeService() {
