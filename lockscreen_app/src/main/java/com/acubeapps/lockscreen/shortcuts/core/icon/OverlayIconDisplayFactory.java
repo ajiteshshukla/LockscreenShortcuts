@@ -88,8 +88,7 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
         final Intent launchIntent = new Intent(Intent.ACTION_MAIN);
         launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         launchIntent.setComponent(name);
         return new AppInfo(resolveInfo.activityInfo.packageName, launchIntent);
     }
@@ -120,6 +119,7 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     private void bindAppIcon(List<ImageView> imageViewList, List<String> packageNameList) {
         final List<AppInfo> appInfoList = new ArrayList<>();
         for (int i = 0; i < packageNameList.size(); i++) {
+            Log.d("Ajitesh : ", "package name - " + packageNameList.get(i));
             PackageManager packageManager = context.getPackageManager();
             Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
             mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);

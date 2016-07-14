@@ -34,7 +34,8 @@ public class AppModule {
         this.context = context;
         this.eventBus = new EventBus();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        IconDisplayFactory iconFactory = new OverlayIconDisplayFactory(context, sharedPreferences);
+        AppListStore appListStore = new AppListStore(context);
+        IconDisplayFactory iconFactory = new OverlayIconDisplayFactory(context, sharedPreferences, appListStore);
         this.iconController = new IconControllerImpl(iconFactory);
         this.backgroundPool = Executors.newFixedThreadPool(5);
     }

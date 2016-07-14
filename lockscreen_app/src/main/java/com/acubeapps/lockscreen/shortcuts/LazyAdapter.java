@@ -2,6 +2,7 @@ package com.acubeapps.lockscreen.shortcuts;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,12 +54,20 @@ public class LazyAdapter extends BaseAdapter {
             }
 
             TextView appName = (TextView) convertView.findViewById(R.id.app_name);
-            ImageView appImage = (ImageView) convertView.findViewById(R.id.app_image);
+            final ImageView appImage = (ImageView) convertView.findViewById(R.id.app_image);
             CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.app_select_check);
+            if (appListStore.isPackagePresent(appInfo.getPackageName())) {
+                Log.d("Ajitesh : ", "Package is present - " + appInfo.getPackageName());
+                checkBox.setChecked(true);
+            } else {
+                Log.d("Ajitesh : ", "Package not present setting false - " + appInfo.getPackageName());
+                checkBox.setChecked(false);
+            }
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
+                    if (compoundButton.isChecked()) {
+                        Log.d("Ajitesh : ", "applist store package count - " + appListStore.getPackageCount());
                         if (appListStore.getPackageCount() >= 6) {
                             compoundButton.setChecked(false);
                             Toast.makeText(context, "Max 6 Shortcuts Allowed", Toast.LENGTH_SHORT).show();
@@ -66,7 +75,10 @@ public class LazyAdapter extends BaseAdapter {
                             appListStore.addPackage(appInfo);
                         }
                     } else {
-                        appListStore.removePackage(appInfo.getPackageName());
+                        Log.d("Ajitesh : ", "deleting package as unchecked - " + appInfo.getPackageName());
+                        if (appListStore.isPackagePresent(appInfo.getPackageName())) {
+                            appListStore.removePackage(appInfo.getPackageName());
+                        }
                     }
                 }
             });
