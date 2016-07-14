@@ -53,9 +53,10 @@ public class LazyAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(context).inflate(R.layout.app_icon_card, parent, false);
             }
 
-            TextView appName = (TextView) convertView.findViewById(R.id.app_name);
+            final TextView appName = (TextView) convertView.findViewById(R.id.app_name);
             final ImageView appImage = (ImageView) convertView.findViewById(R.id.app_image);
-            CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.app_select_check);
+            final CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.app_select_check);
+            checkBox.setOnCheckedChangeListener(null);
             if (appListStore.isPackagePresent(appInfo.getPackageName())) {
                 Log.d("Ajitesh : ", "Package is present - " + appInfo.getPackageName());
                 checkBox.setChecked(true);
@@ -93,5 +94,10 @@ public class LazyAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         return convertView;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }
