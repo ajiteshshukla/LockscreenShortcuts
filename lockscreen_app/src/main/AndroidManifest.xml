@@ -15,6 +15,7 @@
         <activity
             android:name=".UnlockActivity"
             android:enabled="true"
+            android:excludeFromRecents="true"
             android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" />
 
         <service android:name=".core.NudgeService"></service>
@@ -39,7 +40,15 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ActivityAppSelect" android:enabled="true">
+        <activity android:name=".ActivityAppSelect"
+                  android:enabled="true"
+                  android:clearTaskOnLaunch="true"
+                  android:excludeFromRecents="true"
+                  android:label="@string/app_name"
+                  android:launchMode="singleTask"
+                  android:stateNotNeeded="true"
+                  android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
+                  android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

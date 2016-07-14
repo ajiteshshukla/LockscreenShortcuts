@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">LockScreen</string>
+    <string name="app_name">Lockscreen Shortcuts</string>
     <string name="action_settings">Settings</string>
-    <string name="title">LockScreen</string>
-    <string name="app_desc">InMobi LockScreen Desc</string>
+    <string name="title">Lockscreen</string>
+    <string name="app_desc">InMobi Lockscreen Desc</string>
     <string name="heading_name">FREE Popular Apps From Google Play</string>
     <string name="revoke_text">Revoke Access to Google Play!</string>
     <string name="terms">Terms &#38; Conditions</string>
-    <string name="lockscreen_settings">Inmobi LockScreen Settings</string>
-    <string name="not_able">Inmobi LockScreen will not be able to access Google Play on your behalf</string>
-    <string name="stop_contextual">Inmobi LockScreen will stop showing contextual apps on your Lock Screen</string>
-    <string name="you_agree">You agree to this when you using Inmobi LockScreen</string>
-    <string name="lockscreen_text">InMobi LockScreen</string>
-    <string name="turn_off">Turn off Inmobi LockScreen</string>
+    <string name="lockscreen_settings">Inmobi Lockscreen Settings</string>
+    <string name="not_able">Inmobi Lockscreen will not be able to access Google Play on your behalf</string>
+    <string name="stop_contextual">Inmobi Lockscreen will stop showing contextual apps on your Lock Screen</string>
+    <string name="you_agree">You agree to this when you using Inmobi Lockscreen</string>
+    <string name="lockscreen_text">InMobi Lockscreen</string>
+    <string name="turn_off">Turn off Inmobi Lockscreen</string>
     <string name="install_appname">App Name is</string>
     <string name="fan_app_title">FAN App Title</string>
     <string name="app_vandor">App Vendor</string>

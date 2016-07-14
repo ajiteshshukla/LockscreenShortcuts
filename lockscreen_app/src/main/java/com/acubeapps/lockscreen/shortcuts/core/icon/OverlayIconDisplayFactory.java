@@ -1,5 +1,6 @@
 package com.acubeapps.lockscreen.shortcuts.core.icon;
 
+import com.acubeapps.lockscreen.shortcuts.ActivityAppSelect;
 import com.acubeapps.lockscreen.shortcuts.AppInfo;
 import com.acubeapps.lockscreen.shortcuts.AppListStore;
 import com.acubeapps.lockscreen.shortcuts.Constants;
@@ -94,24 +95,36 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     }
 
     private void addTouchListeners(final List<ImageView> imageViewList, final List<AppInfo> appInfoList) {
-        for (int i = 0; i < imageViewList.size() && i < appInfoList.size(); i++) {
-            try {
-                final int j = i;
-                imageViewList.get(i).setImageDrawable(context.getPackageManager()
-                        .getApplicationIcon(appInfoList.get(i).getPackageName()));
-                imageViewList.get(i).setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (appInfoList.get(j).getLaunchIntent() != null) {
-                            context.startActivity(appInfoList.get(j).getLaunchIntent());
-                        } else {
-                            Log.d("Ajitesh : ", "launch intent is null");
+        if (appInfoList.size() == 0) {
+            Intent activityAppSelectIntent = new Intent(context, ActivityAppSelect.class);
+            activityAppSelectIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            appInfoList.add(new AppInfo(context.getPackageName(), activityAppSelectIntent));
+        }
+
+        for (int i = 0; i < imageViewList.size(); i++) {
+            if (i >= appInfoList.size()) {
+                imageViewList.get(i).setVisibility(View.GONE);
+                continue;
+            } else {
+
+                try {
+                    final int j = i;
+                    imageViewList.get(i).setImageDrawable(context.getPackageManager()
+                            .getApplicationIcon(appInfoList.get(i).getPackageName()));
+                    imageViewList.get(i).setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if (appInfoList.get(j).getLaunchIntent() != null) {
+                                context.startActivity(appInfoList.get(j).getLaunchIntent());
+                            } else {
+                                Log.d("Ajitesh : ", "launch intent is null");
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -251,6 +264,7 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         }
 
         public boolean onSingleTapUp(MotionEvent ev) {
+            AnimationHelper.animateHideNudgeDetails(view, null, preferences);
             KeyguardAssist.launchUnlockActivity(context);
             windowManager.removeView(view);
             return true;

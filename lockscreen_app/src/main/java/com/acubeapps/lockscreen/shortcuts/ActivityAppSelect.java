@@ -1,6 +1,5 @@
 package com.acubeapps.lockscreen.shortcuts;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,7 +15,7 @@ import java.util.List;
 /**
  * Created by ajitesh.shukla on 7/13/16.
  */
-public class ActivityAppSelect extends Activity {
+public class ActivityAppSelect extends AbstractLockScreenActivity {
 
     private ListView listView;
 
