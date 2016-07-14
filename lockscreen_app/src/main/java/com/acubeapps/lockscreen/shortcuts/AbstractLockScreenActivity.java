@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Created by ritwik on 29/05/16.
+ * Created by ajitesh.shukla on 29/05/16.
  */
 public abstract class AbstractLockScreenActivity extends Activity {
 
