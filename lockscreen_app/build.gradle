@@ -24,14 +24,10 @@ android {
 
     signingConfigs {
         release {
-//            storeFile file(project.properties["jks.certPath"])
-//            storePassword project.properties["jks.storePassword"]
-//            keyAlias project.properties["jks.keyAlias"]
-//            keyPassword project.properties["jks.storePassword"]
-            storeFile file("$rootProject.projectDir/certs/android.jks")
-            storePassword "InMobi123"
-            keyAlias "oem"
-            keyPassword "InMobi123"
+            storeFile file("$rootProject.projectDir/certs/dodapp.jks")
+            storePassword "sharingan123@ISMT"
+            keyAlias "dodappkey"
+            keyPassword "sharingan123@ISMT"
         }
     }
 
@@ -68,21 +64,6 @@ dependencies {
     provided deps.javax_annotation
     compile deps.support_v13
     compile 'com.android.support:multidex:1.0.0'
-}
-
-apply plugin: 'checkstyle'
-check.dependsOn 'checkstyle'
-
-checkstyle {
-    toolVersion = "${checkstyleVersion}"
-    configFile = file("$rootProject.projectDir/configs/checkstyle.xml")
-}
-
-task checkstyle(type: Checkstyle) {
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-    classpath = files()
 }
 
 apply plugin: 'maven'

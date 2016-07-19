@@ -8,24 +8,44 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.acubeapps.lockscreen.shortcuts.core.events.ScreenOffEvent;
+import com.acubeapps.lockscreen.shortcuts.typeface.WaltToGraph;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Created by ajitesh.shukla on 7/13/16.
  */
 public class ActivityAppSelect extends AbstractLockScreenActivity {
 
-    private ListView listView;
+    @Inject
+    EventBus eventBus;
+
+    @BindView(R.id.applist)
+    ListView listView;
 
     private LazyAdapter lazyAdapter;
+
+    @BindView(R.id.header_text)
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_select);
-        listView = (ListView) findViewById(R.id.applist);
+        Injectors.appComponent().injectAppSelectActivity(this);
+        eventBus.register(this);
+
+        ButterKnife.bind(this);
+        WaltToGraph.applyFont(this, textView);
+
         AppListStore appListStore = new AppListStore(this);
         lazyAdapter = new LazyAdapter(this, getAppInfoList(), appListStore);
         listView.setAdapter(lazyAdapter);
@@ -62,5 +82,10 @@ public class ActivityAppSelect extends AbstractLockScreenActivity {
             }
         }
         return appInfoList;
+    }
+
+    @Subscribe
+    public void onScreenOff(ScreenOffEvent event) {
+        finish();
     }
 }

@@ -21,4 +21,6 @@ public interface AppComponent {
     void injectUnlockActivity(UnlockActivity obj);
 
     void injectWakeupReciever(WakeupReciever obj);
+
+    void injectAppSelectActivity(ActivityAppSelect obj);
 }

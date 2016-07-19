@@ -89,7 +89,8 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
         final Intent launchIntent = new Intent(Intent.ACTION_MAIN);
         launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+        launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME |
+                Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         launchIntent.setComponent(name);
         return new AppInfo(resolveInfo.activityInfo.packageName, launchIntent);
     }
@@ -266,7 +267,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
         public boolean onSingleTapUp(MotionEvent ev) {
             AnimationHelper.animateHideNudgeDetails(view, null, preferences);
             KeyguardAssist.launchUnlockActivity(context);
-            windowManager.removeView(view);
             return true;
         }
 

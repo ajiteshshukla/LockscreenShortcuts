@@ -4,7 +4,6 @@ import com.acubeapps.lockscreen.shortcuts.Constants;
 import com.acubeapps.lockscreen.shortcuts.R;
 
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.view.MotionEvent;
@@ -14,7 +13,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.RelativeLayout;
 
 /**
  * Created by ajitesh.shukla on 7/7/16.

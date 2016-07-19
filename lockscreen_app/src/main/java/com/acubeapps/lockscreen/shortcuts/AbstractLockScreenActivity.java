@@ -19,14 +19,14 @@ public abstract class AbstractLockScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //showOnLockScreen();
-        setupTransparentSystemAndStatusBars();
+        //setupTransparentSystemAndStatusBars();
         darkTranslucent = getResources().getColor(R.color.dark_translucent);
     }
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        setupTransparentSystemAndStatusBars();
+        //setupTransparentSystemAndStatusBars();
         //showOnLockScreen();
     }
 
