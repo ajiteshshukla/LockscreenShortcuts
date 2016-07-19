@@ -5,6 +5,7 @@
 
 package com.acubeapps.lockscreen.shortcuts.utils;
 
+import android.app.KeyguardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.res.Resources;
@@ -100,7 +101,7 @@ public final class Device {
     }
 
     public static Point getScreenSize(@NonNull Context var0) {
-        Display var4 = ((WindowManager) var0.getSystemService("window")).getDefaultDisplay();
+        Display var4 = ((WindowManager) var0.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point var1 = new Point();
         if (hasJellyBeanApi()) {
             DisplayMetrics var5 = new DisplayMetrics();
@@ -223,6 +224,11 @@ public final class Device {
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_ALLOW_RINGER_MODES);
         }
 
+    }
+
+    public static boolean isDeviceLocked(Context context) {
+        KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        return kgMgr.inKeyguardRestrictedInputMode();
     }
 
     public static int getMaxDeviceMediaVolume(Context context) {

@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -74,8 +73,6 @@ public class ActivityAppSelect extends AbstractLockScreenActivity {
                 AppInfo appInfo = getAppInfo(resolveInfo);
                 if (appInfo.getLaunchIntent() != null) {
                     appInfoList.add(appInfo);
-                } else {
-                    Log.d("Ajitesh : ", "launch intent null for " + resolveInfo.toString());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

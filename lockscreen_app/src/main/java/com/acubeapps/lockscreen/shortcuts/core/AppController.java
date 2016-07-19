@@ -1,20 +1,16 @@
 package com.acubeapps.lockscreen.shortcuts.core;
 
+import android.content.Context;
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenEventsType;
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenOffEvent;
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenOnEvent;
 import com.acubeapps.lockscreen.shortcuts.core.events.UserOnHomeScreenEvent;
 import com.acubeapps.lockscreen.shortcuts.core.icon.IconController;
 
-import android.content.SharedPreferences;
-import android.util.Log;
-
+import com.acubeapps.lockscreen.shortcuts.utils.Device;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import timber.log.Timber;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import javax.inject.Inject;
 
 /**
@@ -25,16 +21,14 @@ public class AppController {
     private IconController iconController;
     private EventBus eventBus;
 
-    private final Lock currentIconLock = new ReentrantLock();
-    private SharedPreferences preferences;
+    private Context context;
 
     @Inject
-    public AppController(IconController iconController, EventBus eventBus,
-                         SharedPreferences preferences) {
+    public AppController(IconController iconController, EventBus eventBus, Context context) {
         this.iconController = iconController;
         this.eventBus = eventBus;
-        this.preferences = preferences;
         this.eventBus.register(this);
+        this.context = context;
     }
 
     public void showIcon() {
@@ -43,12 +37,13 @@ public class AppController {
 
     @Subscribe
     public void onScreenOnEvent(ScreenOnEvent event) {
-        Timber.d("onScreenOnEvent()");
         if (isUserOnHomeScreenFingerPrintUnlock(event)
                 || isScreenOnWithoutScreenOff(event)) {
             return;
         }
-        showIcon();
+        if (Device.isDeviceLocked(context)) {
+            showIcon();
+        }
     }
 
     private boolean isScreenOnWithoutScreenOff(ScreenOnEvent screenOnEvent) {
@@ -67,27 +62,21 @@ public class AppController {
 
     @Subscribe
     public void onScreenOffEvent(ScreenOffEvent event) {
-        Timber.d("onScreenOffEvent()");
-        Log.e("AASHA", "Off");
         hide();
     }
 
     @Subscribe
     public void onUserOnHomeScreenEvent(UserOnHomeScreenEvent event) {
-        Timber.d("onUserOnHomeScreenEvent()");
         hide();
     }
 
     private void hide() {
-        Timber.d("hide()");
         iconController.hideIcon();
     }
 
     public void start() {
-        Timber.d("start()");
     }
 
     public void stop() {
-        Timber.d("stop()");
     }
 }

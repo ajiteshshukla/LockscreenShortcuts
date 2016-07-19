@@ -3,7 +3,6 @@ package com.acubeapps.lockscreen.shortcuts;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -66,7 +65,7 @@ public abstract class AbstractLockScreenActivity extends Activity {
             window.setStatusBarColor(darkTranslucent);
             window.setNavigationBarColor(darkTranslucent);
         } catch (Exception e) {
-            Log.d("Ajitesh : ", "Unable to hideIcon status bar");
+            e.printStackTrace();
         }
     }
 

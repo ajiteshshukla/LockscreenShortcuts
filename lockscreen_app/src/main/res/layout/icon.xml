@@ -10,7 +10,7 @@
         android:layout_width="5dp"
         android:layout_height="60dp"
         android:scaleType="fitXY"
-        android:background="@drawable/long_strip"/>
+        android:background="@drawable/nudge"/>
 
     <RelativeLayout
         android:id="@+id/layoutText"
@@ -67,6 +67,6 @@
             android:layout_width="5dp"
             android:layout_height="60dp"
             android:scaleType="fitXY"
-            android:background="@drawable/long_strip"/>
+            android:background="@drawable/nudge"/>
 
 </LinearLayout>

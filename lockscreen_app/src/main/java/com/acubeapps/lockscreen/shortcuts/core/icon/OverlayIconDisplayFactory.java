@@ -16,7 +16,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import android.widget.RelativeLayout;
-import timber.log.Timber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,8 +115,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                         public boolean onTouch(View v, MotionEvent event) {
                             if (appInfoList.get(j).getLaunchIntent() != null) {
                                 context.startActivity(appInfoList.get(j).getLaunchIntent());
-                            } else {
-                                Log.d("Ajitesh : ", "launch intent is null");
                             }
                             return false;
                         }
@@ -133,7 +129,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     private void bindAppIcon(List<ImageView> imageViewList, List<String> packageNameList) {
         final List<AppInfo> appInfoList = new ArrayList<>();
         for (int i = 0; i < packageNameList.size(); i++) {
-            Log.d("Ajitesh : ", "package name - " + packageNameList.get(i));
             PackageManager packageManager = context.getPackageManager();
             Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
             mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -148,8 +143,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                     if (appInfo.getLaunchIntent() != null) {
                         appInfoList.add(appInfo);
                         break;
-                    } else {
-                        Log.d("Ajitesh : ", "launch intent null for " + resolveInfo.toString());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -170,7 +163,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                 lsIcon.setVisibility(View.GONE);
                 lsIconRight.setVisibility(View.VISIBLE);
             }
-            Timber.d(LOG_TAG, "Align Nudge Right");
         } else {
             layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
             preferences.edit().putBoolean(Constants.NUDGE_ALIGN_LEFT, true).apply();
@@ -178,7 +170,6 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                 lsIcon.setVisibility(View.VISIBLE);
                 lsIconRight.setVisibility(View.GONE);
             }
-            Timber.d(LOG_TAG, "Align Nudge Left");
         }
         layoutParams.x = 0;
         layoutParams.y = 60;
@@ -215,15 +206,12 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (isLongPressed) {
-                        Log.d("Ajitesh : ", "long pressed and moved");
                         moveIconToPointer(view, motionEvent, initialY, initialTouchY);
                     } else if ((layoutText.getVisibility() == View.INVISIBLE
                             || layoutText.getVisibility() == View.GONE) && flag_handled == false) {
-                        Log.d("Ajitesh : ", "animate and show nudge details");
                         flag_handled = true;
                         AnimationHelper.animateShowNudgeDetails(view, preferences);
                     } else if (layoutText.getVisibility() == View.VISIBLE && flag_handled == false) {
-                        Log.d("Ajitesh : ", "animate and hide nudge details");
                         flag_handled = true;
                         AnimationHelper.animateHideNudgeDetails(view, null, preferences);
                     }

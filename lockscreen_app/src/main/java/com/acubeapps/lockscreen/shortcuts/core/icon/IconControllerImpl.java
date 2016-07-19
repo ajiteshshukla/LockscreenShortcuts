@@ -1,7 +1,5 @@
 package com.acubeapps.lockscreen.shortcuts.core.icon;
 
-import timber.log.Timber;
-
 import javax.inject.Inject;
 
 /**
@@ -26,7 +24,6 @@ public class IconControllerImpl implements IconController {
 
     @Override
     public void hideIcon() {
-        Timber.d("hideIcon");
         if (currentDisplay == null) {
             return;
         }

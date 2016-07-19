@@ -7,7 +7,5 @@ public final class Constants {
     private Constants() {
     }
 
-    public static final long PICASSO_CACHE_AGE = 60 * 60 * 24 * 7;
     public static final String NUDGE_ALIGN_LEFT = "nudge.align.left";
-
 }

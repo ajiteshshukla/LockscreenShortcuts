@@ -13,7 +13,6 @@ import dagger.Module;
 import dagger.Provides;
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.inject.Singleton;

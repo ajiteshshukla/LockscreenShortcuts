@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.telephony.TelephonyManager;
-import timber.log.Timber;
 
 import javax.inject.Inject;
 
@@ -26,7 +25,6 @@ public class WakeupReciever extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Timber.d("onReceive(%s)", intent);
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
         if (state != null && state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             iconController.hideIcon();

@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import org.greenrobot.eventbus.EventBus;
-import timber.log.Timber;
 
 import javax.inject.Inject;
 
@@ -43,7 +42,6 @@ public class ScreenEventsDetector extends BroadcastReceiver {
         if (action == null) {
             return;
         }
-        Timber.i("intent received = %s", action);
 
         switch (action) {
             case Intent.ACTION_SCREEN_ON:

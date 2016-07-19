@@ -18,8 +18,6 @@ android {
 
     defaultConfig {
         applicationId "com.acubeapps.lockscreen.shortcuts"
-
-        multiDexEnabled true
     }
 
     signingConfigs {
@@ -35,7 +33,6 @@ android {
         release {
             zipAlignEnabled true
             signingConfig signingConfigs.release
-
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     output.outputFile = new File(
@@ -44,7 +41,6 @@ android {
                 }
             }
         }
-
         debug {
             zipAlignEnabled true
             signingConfig signingConfigs.release
@@ -53,7 +49,6 @@ android {
 }
 
 dependencies {
-    compile deps.timber
     compile deps.appcompat_v7
     compile deps.support_design
     compile deps.eventbus
@@ -63,7 +58,6 @@ dependencies {
     apt deps.dagger_compiler
     provided deps.javax_annotation
     compile deps.support_v13
-    compile 'com.android.support:multidex:1.0.0'
 }
 
 apply plugin: 'maven'

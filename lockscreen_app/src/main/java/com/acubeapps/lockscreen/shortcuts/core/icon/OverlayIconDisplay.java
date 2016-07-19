@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import timber.log.Timber;
 
 /**
  * Created by ajitesh.shukla on 7/12/16.

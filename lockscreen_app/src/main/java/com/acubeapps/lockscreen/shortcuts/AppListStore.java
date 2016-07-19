@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +45,7 @@ public class AppListStore extends SQLiteOpenHelper {
 
     public void addPackage(AppInfo appInfo) {
         if (isPackagePresent(appInfo.getPackageName())) {
-            Log.d("Ajitesh : ", "can't add package already present - " + appInfo.getPackageName());
             return;
-        } else {
-            Log.d("Ajitesh : ", "adding new package - " + appInfo.getPackageName());
         }
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
