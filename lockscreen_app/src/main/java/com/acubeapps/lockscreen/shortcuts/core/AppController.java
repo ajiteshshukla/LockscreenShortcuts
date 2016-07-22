@@ -41,7 +41,7 @@ public class AppController {
                 || isScreenOnWithoutScreenOff(event)) {
             return;
         }
-        if (Device.isDeviceLocked(context)) {
+        if (Device.isDeviceLocked(context) && !Device.isCallOngoing(context)) {
             showIcon();
         }
     }

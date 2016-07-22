@@ -8,35 +8,56 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ajitesh.shukla on 7/13/16.
  */
-public class LazyAdapter extends BaseAdapter {
+public class LazyAdapter extends BaseAdapter implements Filterable {
 
     Context context;
     List<AppInfo> appInfoList;
+    List<AppInfo> appInfoListFiltered;
     AppListStore appListStore;
 
     public LazyAdapter(Context context, List<AppInfo> appInfoList, AppListStore appListStore) {
         this.context = context;
-        this.appInfoList = appInfoList;
         this.appListStore = appListStore;
+        this.appInfoList = sortAppInfoList(appInfoList);
+        this.appInfoListFiltered = sortAppInfoList(appInfoList);
+    }
+
+    public List<AppInfo> sortAppInfoList(List<AppInfo> appInfoList) {
+        List<AppInfo> unSelectedAppInfoList = new ArrayList<>();
+        List<AppInfo> selectedAppInfoList = new ArrayList<>();
+        List<AppInfo> finalAppInfoList = new ArrayList<>();
+        for (AppInfo appInfo : appInfoList) {
+            if (appListStore.isPackagePresent(appInfo.getPackageName())) {
+                selectedAppInfoList.add(appInfo);
+            } else {
+                unSelectedAppInfoList.add(appInfo);
+            }
+        }
+        finalAppInfoList.addAll(selectedAppInfoList);
+        finalAppInfoList.addAll(unSelectedAppInfoList);
+        return finalAppInfoList;
     }
 
     @Override
     public int getCount() {
-        return appInfoList.size();
+        return appInfoListFiltered.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return appInfoList.get(i);
+        return appInfoListFiltered.get(i);
     }
 
     @Override
@@ -94,5 +115,37 @@ public class LazyAdapter extends BaseAdapter {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+
+                if (constraint == null || constraint.length() == 0) {
+                    results.count = appInfoList.size();
+                    results.values = appInfoList;
+                } else {
+                    List<AppInfo> resultsData = new ArrayList<>();
+                    String searchStr = constraint.toString().toUpperCase();
+                    for (AppInfo appInfo : appInfoList) {
+                        if (appInfo.getPackageName().toUpperCase().contains(searchStr)) {
+                            resultsData.add(appInfo);
+                        }
+                    }
+                    results.count = resultsData.size();
+                    results.values = resultsData;
+                }
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                appInfoListFiltered = (ArrayList<AppInfo>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

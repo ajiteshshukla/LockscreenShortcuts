@@ -6,6 +6,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -35,6 +38,9 @@ public class ActivityAppSelect extends AbstractLockScreenActivity {
     @BindView(R.id.header_text)
     TextView textView;
 
+    @BindView(R.id.inputSearch)
+    EditText inputSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,27 @@ public class ActivityAppSelect extends AbstractLockScreenActivity {
         AppListStore appListStore = new AppListStore(this);
         lazyAdapter = new LazyAdapter(this, getAppInfoList(), appListStore);
         listView.setAdapter(lazyAdapter);
+
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                ActivityAppSelect.this.lazyAdapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+
+            }
+
+        });
     }
 
     private AppInfo getAppInfo(ResolveInfo resolveInfo) {

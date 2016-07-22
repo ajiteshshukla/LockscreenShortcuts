@@ -15,9 +15,15 @@
               android:textColor="#FFFFFF"
               android:textSize="22sp"
               android:text="SELECT SHORTCUTS"/>
+    <EditText android:id="@+id/inputSearch"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Search Apps"
+              android:layout_below="@+id/header_text"
+              android:inputType="textVisiblePassword"/>
     <ListView android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_below="@+id/header_text"
+              android:layout_below="@+id/inputSearch"
               android:id="@+id/applist"
               android:divider="#b5b5b5"
               android:dividerHeight="1dp"/>
