@@ -43,13 +43,23 @@
         <activity android:name=".ActivityAppSelect"
                   android:enabled="true"
                   android:label="@string/app_name"
-                  android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
+                  android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
                   android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".settings.SettingsActivity"
+                  android:enabled="true"
+                  android:label="Lockscreen Settings"
+                  android:theme="@style/Theme.AppCompat"/>
+
+        <activity android:name=".onboarding.LockscreenIntro"
+                  android:label="Welcome"
+                  android:windowSoftInputMode="stateHidden|adjustPan"/>
+
     </application>
 
 </manifest>

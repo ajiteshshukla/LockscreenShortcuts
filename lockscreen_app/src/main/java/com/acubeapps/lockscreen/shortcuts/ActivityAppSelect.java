@@ -6,14 +6,21 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenOffEvent;
+import com.acubeapps.lockscreen.shortcuts.onboarding.LockscreenIntro;
+import com.acubeapps.lockscreen.shortcuts.settings.SettingsActivity;
 import com.acubeapps.lockscreen.shortcuts.typeface.WaltToGraph;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,7 +32,7 @@ import javax.inject.Inject;
 /**
  * Created by ajitesh.shukla on 7/13/16.
  */
-public class ActivityAppSelect extends AbstractLockScreenActivity {
+public class ActivityAppSelect extends AppCompatActivity {
 
     @Inject
     EventBus eventBus;
@@ -41,40 +48,41 @@ public class ActivityAppSelect extends AbstractLockScreenActivity {
     @BindView(R.id.inputSearch)
     EditText inputSearch;
 
+    @BindView(R.id.settings)
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_select);
-        Injectors.appComponent().injectAppSelectActivity(this);
-        eventBus.register(this);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Constants.ONBOARDING_EXPLORED, false)) {
+            Intent onBoardingIntent = new Intent(this, LockscreenIntro.class);
+            onBoardingIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(onBoardingIntent);
+            finish();
+        } else {
+            setContentView(R.layout.activity_app_select);
+            Injectors.appComponent().injectAppSelectActivity(this);
+            eventBus.register(this);
 
-        ButterKnife.bind(this);
-        WaltToGraph.applyFont(this, textView);
+            ButterKnife.bind(this);
+            WaltToGraph.applyFont(this, textView);
 
-        AppListStore appListStore = new AppListStore(this);
-        lazyAdapter = new LazyAdapter(this, getAppInfoList(), appListStore);
-        listView.setAdapter(lazyAdapter);
+            AppListStore appListStore = new AppListStore(this);
+            lazyAdapter = new LazyAdapter(this, getAppInfoList(), appListStore);
+            listView.setAdapter(lazyAdapter);
 
-        inputSearch.addTextChangedListener(new TextWatcher() {
+            inputSearch.addTextChangedListener(getTextWatcher());
 
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                // When user changed the Text
-                ActivityAppSelect.this.lazyAdapter.getFilter().filter(cs);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-
-            }
-
-        });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ActivityAppSelect.this, SettingsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ActivityAppSelect.this.startActivity(intent);
+                }
+            });
+        }
     }
 
     private AppInfo getAppInfo(ResolveInfo resolveInfo) {
@@ -106,6 +114,29 @@ public class ActivityAppSelect extends AbstractLockScreenActivity {
             }
         }
         return appInfoList;
+    }
+
+    private TextWatcher getTextWatcher() {
+        return new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                ActivityAppSelect.this.lazyAdapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+
+            }
+
+        };
     }
 
     @Subscribe

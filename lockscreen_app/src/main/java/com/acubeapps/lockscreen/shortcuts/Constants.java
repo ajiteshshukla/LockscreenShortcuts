@@ -8,4 +8,5 @@ public final class Constants {
     }
 
     public static final String NUDGE_ALIGN_LEFT = "nudge.align.left";
+    public static final String ONBOARDING_EXPLORED = "onboarding.explored";
 }

@@ -95,7 +95,12 @@ public class OverlayIconDisplay implements IconDisplay {
                 }
                 try {
                     wm.addView(viewGroup, getLayoutParams());
-                    AnimationHelper.animateShowNudgeDetails(viewGroup, preferences);
+                    if (preferences.getBoolean("pref_key_auto_expand", true)) {
+                        AnimationHelper.animateShowNudgeDetails(viewGroup, preferences);
+                    } else {
+                        final View nudgeView = viewGroup.findViewById(R.id.layoutText);
+                        nudgeView.setVisibility(View.INVISIBLE);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     isPresent = false;

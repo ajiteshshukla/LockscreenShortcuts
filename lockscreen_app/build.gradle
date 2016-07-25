@@ -58,6 +58,7 @@ dependencies {
     apt deps.dagger_compiler
     provided deps.javax_annotation
     compile deps.support_v13
+    compile 'com.github.paolorotolo:appintro:4.0.0'
 }
 
 apply plugin: 'maven'
