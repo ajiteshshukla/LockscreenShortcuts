@@ -135,7 +135,6 @@ public class ActivityAppSelect extends AppCompatActivity {
                                           int arg3) {
 
             }
-
         };
     }
 

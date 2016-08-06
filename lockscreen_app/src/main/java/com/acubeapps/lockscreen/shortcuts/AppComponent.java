@@ -2,6 +2,7 @@ package com.acubeapps.lockscreen.shortcuts;
 
 import com.acubeapps.lockscreen.shortcuts.core.NudgeService;
 import com.acubeapps.lockscreen.shortcuts.core.WakeupReciever;
+import com.acubeapps.lockscreen.shortcuts.settings.SettingsActivity;
 
 import dagger.Component;
 
@@ -23,4 +24,6 @@ public interface AppComponent {
     void injectWakeupReciever(WakeupReciever obj);
 
     void injectAppSelectActivity(ActivityAppSelect obj);
+
+    void injectSettingsActivity(SettingsActivity obj);
 }

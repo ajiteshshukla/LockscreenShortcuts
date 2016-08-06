@@ -52,14 +52,30 @@ public class OverlayIconDisplay implements IconDisplay {
         params = new WindowManager.LayoutParams(width, height, windowType, flags, format);
         View lsIcon = viewGroup.findViewById(R.id.lsIcon);
         View lsIconRight = viewGroup.findViewById(R.id.lsIconRight);
-        if (preferences.getBoolean(Constants.NUDGE_ALIGN_LEFT, true)) {
+        if (preferences.getString("pref_display_location", "Top-Left").equals("Top-Left")) {
+            preferences.edit().putBoolean(Constants.NUDGE_ALIGN_LEFT, true).apply();
             params.gravity = Gravity.LEFT | Gravity.TOP;
             if (lsIcon != null && lsIconRight != null) {
                 lsIcon.setVisibility(View.VISIBLE);
                 lsIconRight.setVisibility(View.GONE);
             }
-        } else {
+        } else if (preferences.getString("pref_display_location", "Top-Left").equals("Top-Right")) {
+            preferences.edit().putBoolean(Constants.NUDGE_ALIGN_LEFT, false).apply();
             params.gravity = Gravity.RIGHT | Gravity.TOP;
+            if (lsIcon != null && lsIconRight != null) {
+                lsIcon.setVisibility(View.GONE);
+                lsIconRight.setVisibility(View.VISIBLE);
+            }
+        } else if (preferences.getString("pref_display_location", "Top-Left").equals("Bottom-Left")) {
+            preferences.edit().putBoolean(Constants.NUDGE_ALIGN_LEFT, true).apply();
+            params.gravity = Gravity.LEFT | Gravity.BOTTOM;
+            if (lsIcon != null && lsIconRight != null) {
+                lsIcon.setVisibility(View.VISIBLE);
+                lsIconRight.setVisibility(View.GONE);
+            }
+        } else {
+            preferences.edit().putBoolean(Constants.NUDGE_ALIGN_LEFT, false).apply();
+            params.gravity = Gravity.RIGHT | Gravity.BOTTOM;
             if (lsIcon != null && lsIconRight != null) {
                 lsIcon.setVisibility(View.GONE);
                 lsIconRight.setVisibility(View.VISIBLE);
@@ -99,7 +115,7 @@ public class OverlayIconDisplay implements IconDisplay {
                         AnimationHelper.animateShowNudgeDetails(viewGroup, preferences);
                     } else {
                         final View nudgeView = viewGroup.findViewById(R.id.layoutText);
-                        nudgeView.setVisibility(View.INVISIBLE);
+                        nudgeView.setVisibility(View.GONE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

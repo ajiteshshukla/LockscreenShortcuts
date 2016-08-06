@@ -28,4 +28,12 @@
     <string name="open_app">OPEN APP</string>
     <string name="unlock_to_explore">UNLOCK TO EXPLORE</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string-array name="location">
+        <item>Top-Left</item>
+        <item>Top-Right</item>
+        <item>Bottom-Left</item>
+        <item>Bottom-Right</item>
+    </string-array>
+
 </resources>

@@ -45,7 +45,7 @@ public final class AnimationHelper {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        nudgeView.setVisibility(View.INVISIBLE);
+                        nudgeView.setVisibility(View.GONE);
                     }
 
                     @Override
