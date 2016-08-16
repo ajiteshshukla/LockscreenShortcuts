@@ -26,15 +26,18 @@ public final class AnimationHelper {
     public static void animateHideNudgeDetails(final View view, Animation.AnimationListener animationListener,
                                                SharedPreferences preferences) {
         final View nudgeView = view.findViewById(R.id.layoutText);
+        final View dummyView;
         ScaleAnimation scaleAnimation;
         if (nudgeView != null && nudgeView.getVisibility() == View.VISIBLE) {
             if (preferences.getBoolean(Constants.NUDGE_ALIGN_LEFT, true)) {
                 scaleAnimation = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f);
+                dummyView = view.findViewById(R.id.dummyTouchViewLeft);
             } else {
                 scaleAnimation = new ScaleAnimation(1.0f, 0.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f,
                         Animation.RELATIVE_TO_SELF, 1.0f);
+                dummyView = view.findViewById(R.id.dummyTouchViewRight);
             }
-            scaleAnimation.setDuration(500);
+            scaleAnimation.setDuration(200);
             scaleAnimation.setInterpolator(new AccelerateInterpolator());
             if (animationListener == null) {
                 animationListener = new Animation.AnimationListener() {
@@ -46,6 +49,7 @@ public final class AnimationHelper {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         nudgeView.setVisibility(View.GONE);
+                        dummyView.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
@@ -61,13 +65,17 @@ public final class AnimationHelper {
 
     public static void animateShowNudgeDetails(View view, SharedPreferences preferences) {
         ScaleAnimation scaleAnimation;
+        final View dummyView;
         if (preferences.getBoolean(Constants.NUDGE_ALIGN_LEFT, true)) {
             scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f);
+            dummyView = view.findViewById(R.id.dummyTouchViewLeft);
         } else {
             scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 1.0f, 1.0f, Animation.RELATIVE_TO_SELF, 1.0f,
                     Animation.RELATIVE_TO_SELF, 1.0f);
+            dummyView = view.findViewById(R.id.dummyTouchViewRight);
         }
-        scaleAnimation.setDuration(500);
+        dummyView.setVisibility(View.GONE);
+        scaleAnimation.setDuration(200);
         scaleAnimation.setInterpolator(new AccelerateInterpolator());
         View nudgeView = view.findViewById(R.id.layoutText);
         if (nudgeView != null) {

@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,7 +38,7 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
     private final Context context;
     private SharedPreferences preferences;
     GestureDetector gestureDetector;
-    private boolean flag_handled = false;
+    private static boolean flag_handled = false;
     private RelativeLayout layoutText;
     private final AppListStore appListStore;
 
@@ -166,11 +167,14 @@ public class OverlayIconDisplayFactory implements IconDisplayFactory {
                     AnimationHelper.animateHideNudgeDetails(view, null, preferences);
                     break;
                 case MotionEvent.ACTION_MOVE:
+                    Log.d("Ajitesh : ", "action move detected");
                     if ((layoutText.getVisibility() == View.INVISIBLE
                             || layoutText.getVisibility() == View.GONE) && flag_handled == false) {
+                        Log.d("Ajitesh : ", "animate show nudge details");
                         flag_handled = true;
                         AnimationHelper.animateShowNudgeDetails(view, preferences);
                     } else if (layoutText.getVisibility() == View.VISIBLE && flag_handled == false) {
+                        Log.d("Ajitesh : ", "animate hide nudge details");
                         flag_handled = true;
                         AnimationHelper.animateHideNudgeDetails(view, null, preferences);
                     }
