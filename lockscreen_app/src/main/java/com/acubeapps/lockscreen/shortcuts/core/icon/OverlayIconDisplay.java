@@ -115,6 +115,13 @@ public class OverlayIconDisplay implements IconDisplay {
                         AnimationHelper.animateShowNudgeDetails(viewGroup, preferences);
                     } else {
                         final View nudgeView = viewGroup.findViewById(R.id.layoutText);
+                        if (preferences.getBoolean(Constants.NUDGE_ALIGN_LEFT, true)) {
+                            final View dummyView = viewGroup.findViewById(R.id.dummyTouchViewLeft);
+                            dummyView.setVisibility(View.INVISIBLE);
+                        } else {
+                            final View dummyView = viewGroup.findViewById(R.id.dummyTouchViewRight);
+                            dummyView.setVisibility(View.INVISIBLE);
+                        }
                         nudgeView.setVisibility(View.GONE);
                     }
                 } catch (Exception e) {
@@ -144,5 +151,9 @@ public class OverlayIconDisplay implements IconDisplay {
                 isPresent = false;
             }
         });
+    }
+
+    private void setBackgroundColor(ViewGroup viewGroup) {
+
     }
 }

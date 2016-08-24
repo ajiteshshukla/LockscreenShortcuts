@@ -2,13 +2,17 @@ package com.acubeapps.lockscreen.shortcuts.onboarding;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Toast;
+
 import com.acubeapps.lockscreen.shortcuts.ActivityAppSelect;
 import com.acubeapps.lockscreen.shortcuts.Constants;
 import com.acubeapps.lockscreen.shortcuts.R;
+import com.acubeapps.lockscreen.shortcuts.utils.Device;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntro2Fragment;
 
@@ -62,9 +66,17 @@ public class LockscreenIntro extends AppIntro2 {
         super.onSkipPressed(currentFragment);
         PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()).edit()
                 .putBoolean(Constants.ONBOARDING_EXPLORED, true).apply();
-        Intent loginIntent = new Intent(this, ActivityAppSelect.class);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(loginIntent);
+        if (Build.MANUFACTURER.equalsIgnoreCase(Constants.KEY_XIAOMI)) {
+            try {
+                launchMiuiManager();
+                Toast.makeText(this, "Please enable pop up window permission.", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Please enable pop up window permission.", Toast.LENGTH_LONG).show();
+                launchAppSelectActivity();
+            }
+        } else {
+            launchAppSelectActivity();
+        }
         finish();
     }
 
@@ -73,9 +85,30 @@ public class LockscreenIntro extends AppIntro2 {
         super.onDonePressed(currentFragment);
         PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()).edit()
                 .putBoolean(Constants.ONBOARDING_EXPLORED, true).apply();
+        if (Build.MANUFACTURER.equalsIgnoreCase(Constants.KEY_XIAOMI)) {
+            try {
+                launchMiuiManager();
+                Toast.makeText(this, "Please enable pop up window permission.", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                launchAppSelectActivity();
+                Toast.makeText(this, "Please enable pop up window permission.", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            launchAppSelectActivity();
+        }
+        finish();
+    }
+
+    private void launchMiuiManager() {
+        Intent intent = Device.toPermissionMiUiManager(this, this.getPackageName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
+    }
+
+    private void launchAppSelectActivity() {
         Intent loginIntent = new Intent(this, ActivityAppSelect.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(loginIntent);
-        finish();
     }
+
 }

@@ -8,6 +8,8 @@ package com.acubeapps.lockscreen.shortcuts.utils;
 import android.app.KeyguardManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.media.AudioManager;
@@ -234,5 +236,19 @@ public final class Device {
     public static int getMaxDeviceMediaVolume(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         return audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+    }
+
+    public static Intent toPermissionMiUiManager(Context context, String packageName) {
+        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+        final String pkgSecurityCenter = "com.miui.securitycenter";
+        try {
+            context.getPackageManager().getPackageInfo(pkgSecurityCenter, PackageManager.GET_ACTIVITIES);
+        } catch (PackageManager.NameNotFoundException ignored) {
+            return null;
+        }
+        intent.setClassName(pkgSecurityCenter,
+                "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+        intent.putExtra("extra_pkgname", packageName);
+        return intent;
     }
 }

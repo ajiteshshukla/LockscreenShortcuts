@@ -9,4 +9,7 @@ public final class Constants {
 
     public static final String NUDGE_ALIGN_LEFT = "nudge.align.left";
     public static final String ONBOARDING_EXPLORED = "onboarding.explored";
+
+    public static final String KEY_XIAOMI = "Xiaomi";
+    public static final int UNLOCK_ACTIVITY_TIMING_DELAY_XIAOMI = 250;
 }

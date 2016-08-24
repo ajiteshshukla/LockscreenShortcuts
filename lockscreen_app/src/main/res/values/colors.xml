@@ -13,4 +13,8 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="GrayTranslucent">#66000000</color>
+    <color name="BlueTranslucent">#663DA6EF</color>
+    <color name="GreenTranslucent">#6646E655</color>
+    <color name="PinkTranslucent">#66D746E6</color>
 </resources>

@@ -5,7 +5,9 @@ import com.acubeapps.lockscreen.shortcuts.core.events.UserOnHomeScreenEvent;
 import com.acubeapps.lockscreen.shortcuts.utils.Device;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import org.greenrobot.eventbus.EventBus;
@@ -53,6 +55,20 @@ public class UnlockActivity extends Activity {
         Injectors.appComponent().injectUnlockActivity(this);
         eventBus.register(this);
         setWindowParams();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.MANUFACTURER.equalsIgnoreCase(Constants.KEY_XIAOMI)) {
+            Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, Constants.UNLOCK_ACTIVITY_TIMING_DELAY_XIAOMI);
+        }
     }
 
     @Subscribe

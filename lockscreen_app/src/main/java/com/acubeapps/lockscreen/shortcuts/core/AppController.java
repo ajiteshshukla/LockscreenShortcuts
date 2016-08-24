@@ -1,6 +1,8 @@
 package com.acubeapps.lockscreen.shortcuts.core;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenEventsType;
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenOffEvent;
 import com.acubeapps.lockscreen.shortcuts.core.events.ScreenOnEvent;
@@ -20,15 +22,17 @@ public class AppController {
 
     private IconController iconController;
     private EventBus eventBus;
-
+    private SharedPreferences preferences;
     private Context context;
 
     @Inject
-    public AppController(IconController iconController, EventBus eventBus, Context context) {
+    public AppController(IconController iconController, EventBus eventBus, Context context,
+                         SharedPreferences preferences) {
         this.iconController = iconController;
         this.eventBus = eventBus;
         this.eventBus.register(this);
         this.context = context;
+        this.preferences = preferences;
     }
 
     public void showIcon() {
@@ -37,11 +41,13 @@ public class AppController {
 
     @Subscribe
     public void onScreenOnEvent(ScreenOnEvent event) {
-        if (isUserOnHomeScreenFingerPrintUnlock(event)
-                || isScreenOnWithoutScreenOff(event)) {
+        if ((isUserOnHomeScreenFingerPrintUnlock(event)
+                || isScreenOnWithoutScreenOff(event))
+                && preferences.getBoolean("pref_key_lockscreen_only", true)) {
             return;
         }
-        if (Device.isDeviceLocked(context) && !Device.isCallOngoing(context)) {
+        if ((Device.isDeviceLocked(context) || !preferences.getBoolean("pref_key_lockscreen_only", true))
+                && !Device.isCallOngoing(context)) {
             showIcon();
         }
     }
@@ -67,7 +73,11 @@ public class AppController {
 
     @Subscribe
     public void onUserOnHomeScreenEvent(UserOnHomeScreenEvent event) {
-        hide();
+        if (preferences.getBoolean("pref_key_lockscreen_only", true)) {
+            hide();
+        } else {
+            //Do nothing
+        }
     }
 
     private void hide() {
